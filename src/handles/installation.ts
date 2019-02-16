@@ -15,19 +15,32 @@ export async function created(context: Context): Promise<void> {
 
   repositories.forEach(async repository => {
     const repo = repository.name;
-    const name = 'gql-doctor-config';
+    const branch = 'gql-doctor-config';
+    const bot = { name: 'gql-doctor-bot', email: 'sandiiarov@gmail.com' };
 
-    const reference = await context.github.gitdata.getRef({
-      repo,
+    const master = await context.github.gitdata.getRef({
       owner,
+      repo,
       ref: 'heads/master',
     });
 
-    const response = await context.github.gitdata.createRef({
-      repo,
+    await context.github.gitdata.createRef({
       owner,
-      ref: `refs/heads/${name}`,
-      sha: reference.data.object.sha,
+      repo,
+      ref: `refs/heads/${branch}`,
+      sha: master.data.object.sha,
+    });
+
+    await context.github.repos.createFile({
+      owner,
+      repo,
+      path: 'gql-doctor.json',
+      message: 'Add gql-doctor.json',
+      content:
+        'ewogICJzZXJ2aWNlcyI6IFsKICAgIHsKICAgICAgIm5hbWUiOiAidXNlciIsCiAgICAgICJvd25lciI6ICJncWwtZG9jdG9yIiwKICAgICAgInJlcG8iOiAiZXhhbXBsZSIsCiAgICAgICJyZWYiOiAibWFzdGVyIiwKICAgICAgInBhdGgiOiAidXNlci5ncmFwaHFsIgogICAgfSwKICAgIHsKICAgICAgIm5hbWUiOiAicG9zdCIsCiAgICAgICJvd25lciI6ICJncWwtZG9jdG9yIiwKICAgICAgInJlcG8iOiAiZXhhbXBsZSIsCiAgICAgICJyZWYiOiAibWFzdGVyIiwKICAgICAgInBhdGgiOiAicG9zdC5ncmFwaHFsIgogICAgfQogIF0sCiAgImxpbmtUeXBlRGVmcyI6IHsKICAgICJvd25lciI6ICJncWwtZG9jdG9yIiwKICAgICJyZXBvIjogImV4YW1wbGUiLAogICAgInJlZiI6ICJtYXN0ZXIiLAogICAgInBhdGgiOiAibGlua1R5cGVEZWZzLmdyYXBocWwiCiAgfQp9',
+      branch: name,
+      committer: bot,
+      author: bot,
     });
   });
 }
