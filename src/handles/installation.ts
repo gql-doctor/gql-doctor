@@ -17,7 +17,6 @@ export async function created(context: Context): Promise<void> {
   repositories.forEach(async repository => {
     const repo = repository.name;
     const branch = 'gql-doctor-config';
-    const bot = { name: 'gql-doctor-bot', email: 'sandiiarov@gmail.com' };
 
     const master = await context.github.gitdata.getRef({
       owner,
@@ -39,8 +38,14 @@ export async function created(context: Context): Promise<void> {
       message: 'Add gql-doctor.json',
       content: configTemplate,
       branch,
-      committer: bot,
-      author: bot,
+    });
+
+    await context.github.pullRequests.create({
+      owner,
+      repo,
+      title: 'Configure GQL-DOCTOR',
+      head: branch,
+      base: 'master',
     });
   });
 }
