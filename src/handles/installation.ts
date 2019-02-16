@@ -1,4 +1,5 @@
 import { Context } from 'probot';
+import configTemplate from '../configTemplate';
 
 interface Payload {
   installation: {
@@ -36,9 +37,8 @@ export async function created(context: Context): Promise<void> {
       repo,
       path: 'gql-doctor.json',
       message: 'Add gql-doctor.json',
-      content:
-        'ewogICJzZXJ2aWNlcyI6IFsKICAgIHsKICAgICAgIm5hbWUiOiAidXNlciIsCiAgICAgICJvd25lciI6ICJncWwtZG9jdG9yIiwKICAgICAgInJlcG8iOiAiZXhhbXBsZSIsCiAgICAgICJyZWYiOiAibWFzdGVyIiwKICAgICAgInBhdGgiOiAidXNlci5ncmFwaHFsIgogICAgfSwKICAgIHsKICAgICAgIm5hbWUiOiAicG9zdCIsCiAgICAgICJvd25lciI6ICJncWwtZG9jdG9yIiwKICAgICAgInJlcG8iOiAiZXhhbXBsZSIsCiAgICAgICJyZWYiOiAibWFzdGVyIiwKICAgICAgInBhdGgiOiAicG9zdC5ncmFwaHFsIgogICAgfQogIF0sCiAgImxpbmtUeXBlRGVmcyI6IHsKICAgICJvd25lciI6ICJncWwtZG9jdG9yIiwKICAgICJyZXBvIjogImV4YW1wbGUiLAogICAgInJlZiI6ICJtYXN0ZXIiLAogICAgInBhdGgiOiAibGlua1R5cGVEZWZzLmdyYXBocWwiCiAgfQp9',
-      branch: name,
+      content: configTemplate,
+      branch,
       committer: bot,
       author: bot,
     });
