@@ -43,7 +43,7 @@ export async function created(context: Context): Promise<void> {
     await context.github.pullRequests.create({
       owner,
       repo,
-      title: 'Configure GQL-DOCTOR',
+      title: 'Configure GQL Doctor',
       head: branch,
       base: 'master',
     });
