@@ -12,7 +12,7 @@
     "watch-node": "nodemon --exec \"yarn start\" --watch ./dist"
   },
   "dependencies": {
-    "probot": "7.5.0"
+    "probot": "7.5.3"
   },
   "devDependencies": {
     "@types/node": "11.9.4",
