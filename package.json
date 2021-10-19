@@ -24,6 +24,6 @@
     "nodemon": "1.18.10",
     "prettier": "1.16.4",
     "smee-client": "1.0.2",
-    "typescript": "3.3.3"
+    "typescript": "3.9.10"
   }
 }
